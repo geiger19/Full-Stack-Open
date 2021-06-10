@@ -6,11 +6,12 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../../part 4/blog/ && npm run build --prod && cp -r build ../blog",
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "test": "jest --verbose"
+
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "eslint": "^7.27.0",
+    "jest": "^27.0.4",
     "nodemon": "^2.0.7"
   }
 }
