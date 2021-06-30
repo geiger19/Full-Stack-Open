@@ -1,0 +1,10 @@
+post http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Does the userId work still?" ,
+    "author": "Bloggy McBlogface",
+    "likes": "17",
+    "url":"http://localhost:3001/userIDwork",
+    "userId": "60d23d1c38736712d878f71f"
+}

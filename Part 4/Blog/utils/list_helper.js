@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 const dummy = (blogs) => {
   blogs = 1
   return blogs
@@ -17,6 +19,18 @@ const favouriteBlog = (blogs) => {
   return favouriteBlogData
 }
 
+const mostBlogs = (blogs) => {
+  let maxBlogs = _.countBy(blogs, 'author')
+  const keysSorted = Object.entries(maxBlogs).sort(function(a,b){return maxBlogs[a]-maxBlogs[b]}).reverse()
+  let result = { author: Object.values(keysSorted)[0][0], blogs: Object.values(keysSorted)[0][1] }
+  return (result)
+}
+
+const mostLikes = (blogs) => {
+  let maxLikes = _.orderBy(blogs, 'likes').reverse()
+  let mostLikes = { author: maxLikes[0].author, likes: maxLikes[0].likes }
+  return mostLikes
+}
 module.exports = {
-  dummy, totalLikes, favouriteBlog
+  dummy, totalLikes, favouriteBlog, mostBlogs, mostLikes
 }
