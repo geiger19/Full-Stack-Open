@@ -19,13 +19,13 @@ const Blog = ({ blog, deleteBlog, updateBlog, user }) => {
   return (
     <li className='blog ' style={blogStyle}>
       Title: {blog.title}<br/>
+      Author: {blog.author}<br/>
       <div style={hideWhenVisible}>
         <button onClick={toggleVisibility}>view</button>
       </div>
-      <div style={showWhenVisible}>
-      Author: {blog.author}<br/>
+      <div className='togglableContent' style={showWhenVisible}>
       URL: {blog.url}<br/>
-      Likes: {blog.likes} <button onClick={updateBlog}>Like</button><br/>
+      Likes: <span class="blogLikes">{blog.likes}</span> <button onClick={updateBlog}>Like</button><br/>
       {blog.user.name}<br/><br/>
         <DeleteButton user={user} blog={blog} deleteBlog={deleteBlog} />
         <button onClick={toggleVisibility}>hide</button>
