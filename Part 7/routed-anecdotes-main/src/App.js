@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import {useMatch, Routes, Route, Link, useNavigate} from "react-router-dom"
 import Notification from './components/Notification'
+import  { useField } from './hooks'
+
 
 const Menu = () => {
   const padding = {
@@ -61,21 +63,26 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
   const navigate = useNavigate()
-
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
+  
+  const reset = () => {
+    content.reset()
+    author.reset()
+    info.reset()
+  }
   const handleSubmit = (e) => {
     
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      'content': content.input.value,
+      'author': author.input.value,
+      'url': info.input.value,
       votes: 0
     })
-    props.setNotification("You have created " + content)
+    props.setNotification("You have created " + content.input.value)
     setTimeout( async () => 
       await props.setNotification("")
     , 5 * 1000);
@@ -88,17 +95,23 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input 
+          {...content.input} 
+           />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...author.input} 
+           />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input 
+          {...info.input} 
+           />
         </div>
         <button>create</button>
+        <button type='reset' onClick={reset}>Reset</button>
       </form>
       <Footer />
     </div>
@@ -123,7 +136,6 @@ const App = () => {
       id: 2
     }
   ])
-
   const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
