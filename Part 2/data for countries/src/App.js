@@ -15,7 +15,7 @@ const [ weather, setWeather] = useState([])
       .get('https://restcountries.eu/rest/v2/all')
       .then(response => {
         console.log('promise fulfilled')
-        setCountries(response.data)
+        setCountries(response.data[0])
       })
   }, [])
   
